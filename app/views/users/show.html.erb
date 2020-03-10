@@ -1,0 +1,28 @@
+<div class='row'>
+  
+  <div class='col-xs-3'>
+    <h2>User info</h2>
+    <%= render 'info', user: @user,now: ''%>
+
+    <h4>follow</h4>
+      <p><%= link_to "フォロー", follows_user_path(@user.id) %></p>
+      <p><%= link_to "フォロワー", followers_user_path(@user.id) %></p>
+      <% if current_user != @user%>
+        <% if @user.followed_by?(current_user) %>
+          <p><%= link_to "フォロー済", user_relationships_path(@user.id), method: :delete %></p>
+        <% else %>
+          <p><%= link_to "フォローする", user_relationships_path(@user.id), method: :post %></p>
+        <% end %>
+      <% end %>
+
+    <h2>New book</h2>
+    <%= render 'books/form', book: @book %>
+
+  </div>
+
+  <div class='col-xs-9'>
+    <h2>Books</h2>
+
+    <%= render 'books/index',books: @books %>
+  </div>
+</div>
